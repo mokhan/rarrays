@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib",__FILE__)
-require "version"
+require "rarrays/version"
 
 Gem::Specification.new do |s|
   s.name        = "rarrays"
