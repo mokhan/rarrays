@@ -1,2 +1,2 @@
-:map ,ta :!rspec spec/**/*.rb<cr>
-:map ,t :!rspec %<cr>
+:map <leada :!rspec spec/**/*.rb<cr>
+:map <leader>  :!rspec %<cr>
