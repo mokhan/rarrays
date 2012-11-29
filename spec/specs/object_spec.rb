@@ -1,13 +1,22 @@
 require "spec_helper"
+module RArrays
+  describe Object do
+    before (:each) do
+      fake_class ArrayBuilder
+    end
 
-describe Object do
-  it "should be to able to declaratively define a new array" do
     class AddressBook
       def intialize
         rarray :contacts
       end
     end
-    sut = AddressBook.new
-    sut.contacts.should_not be_nil
+    let(:item){AddressBook.new}
+
+    context 'when initiating a usage of the array building dsl' do
+      it "should have created an array builder with the minimal info it needs to start building an array" do
+        ArrayBuilder.should have_received(:new,:contacts)
+      end
+    end
   end
+
 end
