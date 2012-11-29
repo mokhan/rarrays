@@ -1,1 +1,1 @@
-require 'object'
+require 'rarrays/object'
