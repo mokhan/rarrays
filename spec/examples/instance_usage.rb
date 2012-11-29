@@ -3,7 +3,7 @@ require 'spec_helper'
 example "Basic" do
   class SomeClass
     def initialize
-      array :names
+      rarray :names
     end
   end
 
@@ -13,7 +13,7 @@ end
 example 'Allow the array to have a read accessor' do
   class SomeClass
     def initialize
-      array :names do|a|
+      rarray :names do|a|
         a.readable
       end
     end
@@ -24,7 +24,7 @@ end
 example 'Allow the array to have a write accessor' do
   class SomeClass
     def initialize
-      array :names do|a|
+      rarray :names do|a|
         a.writable
       end
     end
@@ -35,7 +35,7 @@ end
 example 'Allow the array to have a read and write accessor' do
   class SomeClass
     def initialize
-      array :names do|a|
+      rarray :names do|a|
         a.read_and_write
       end
     end
@@ -46,7 +46,7 @@ end
 example 'Add a mutator method to the class that stores the array' do
   class SomeClass
     def initialize
-      array :names do|a|
+      rarray :names do|a|
         a.mutator :add_item
       end
     end
@@ -60,7 +60,7 @@ end
 example 'Add multiple mutators to the class that stores the array' do
   class SomeClass
     def initialize
-      array :names do|a|
+      rarray :names do|a|
         a.mutator :add_item,:add_it,:push_it
       end
     end
@@ -76,7 +76,7 @@ end
 example 'Add a mutator that ignores addition' do
   class SomeClass
     def initialize
-      array :names do|a|
+      rarray :names do|a|
         a.mutator :add_item do|item|
         end
       end
@@ -91,8 +91,8 @@ end
 example 'Add a mutator that does other custom logic as well as addition' do
   class SomeClass
     def initialize
-      array :secondary
-      array :names do|a|
+      rarray :secondary
+      rarray :names do|a|
         a.mutator :add_item do|item|
           @secondary.push item
           @names.push item
@@ -126,7 +126,7 @@ example 'Add a singular constraint and failure condition to each of the mutators
 
   class SomeClass
     def initialize
-      array :names do|a|
+      rarray :names do|a|
         a.mutator :add_item,:add_it
         a.new_item_must NotBeJP.instance,CriteriaViolation.instance
       end
@@ -167,7 +167,7 @@ example 'Add multiple constraints and a failure condition to each of the mutator
 
   class SomeClass
     def initialize
-      array :names do|a|
+      rarray :names do|a|
         a.mutator :add_item,:add_it
         a.new_item_must NotBeJP.instance,CriteriaViolation.instance
         a.new_item_must NotBeNil.instance,CriteriaViolation.instance
@@ -197,7 +197,7 @@ example 'Add an explicit processing visitor to the array' do
 
   class SomeClass
     def initialize
-      array :names do|a|
+      rarray :names do|a|
         a.mutator :add_item
         a.process_using :display_all,DisplayItem
       end
