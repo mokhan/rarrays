@@ -1,22 +1,29 @@
-require "spec_helper"
-module RArrays
-  describe Object do
+require 'spec_helper'
+
+describe Object do
+  context 'when initiating a usage of the array building dsl' do
+    let(:builder){fake}
     before (:each) do
-      fake_class ArrayBuilder
+      RArrays::ArrayBuilder.stub(:new).and_return(builder)
+      @configured = false
     end
 
-    class AddressBook
-      def intialize
-        rarray :contacts
+    before (:each) do
+      rarray :contacts do|item|
+        @item = item
+        @configured = true
       end
     end
-    let(:item){AddressBook.new}
+    
+    it "should configure the builder using the provided configuration block" do
+      @configured.should be_true
+      @item.should == builder
+    end
 
-    context 'when initiating a usage of the array building dsl' do
-      it "should have created an array builder with the minimal info it needs to start building an array" do
-        ArrayBuilder.should have_received(:new,:contacts)
-      end
+    it 'should tell the builder to apply itself against the target' do
+      rarray :items
+      builder.should have_received(:apply_to,self)
     end
   end
-
 end
+

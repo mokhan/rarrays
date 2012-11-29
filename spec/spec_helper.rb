@@ -1,4 +1,5 @@
 require 'fileutils'
+require 'fakes'
 require 'fakes-rspec'
 require 'singleton'
 require 'rspec'
