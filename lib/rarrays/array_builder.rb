@@ -2,20 +2,21 @@ module RArrays
   class ArrayBuilder
     attr_reader :steps
     def initialize(name, configuration = {})
-      @steps = []
+      @steps = configuration[:steps]
+      @step_factory = configuration[:step_factory]
     end
     def apply_to(target)
 
     end
 
     def readable
-      @steps << :readable
+      @steps << @step_factory.create_for(:readable)
     end
     def writeable
-      @steps << :writeable
+      @steps << @step_factory.create_for(:writeable)
     end
     def mutator(name)
-      @steps << :mutator
+      @steps << @step_factory.create_for(:mutator, name)
     end
   end
 end

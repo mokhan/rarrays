@@ -8,8 +8,10 @@ module RArrays
     let(:steps) { [] }
     context "when configuring an array to be readable" do
       before(:each) do
-        sut.readable
         step_factory.stub(:create_for).with(:readable).and_return(readable_step)
+      end
+      before(:each) do
+        sut.readable
       end
       it "should add a readable step to the recipe" do
         steps.include?(readable_step).should be_true
@@ -31,13 +33,13 @@ module RArrays
     context 'when adding an aliased mutator method' do
       let(:mutator_step) { fake }
       before(:each) do
-        step_factory.stub(:create_for).with(:mutator).with(:add_item).and_return(mutator_step)
+        step_factory.stub(:create_for).with(:mutator,:add_item).and_return(mutator_step)
       end
       before(:each) do
         sut.mutator :add_item
       end
       it "should include a new step for the mutator " do
-        steps.include?(:mutator).should be_true
+        steps.include?(mutator_step).should be_true
       end
     end
   end
