@@ -3,7 +3,8 @@ require 'spec_helper'
 module RArrays
   describe ArrayBuilder do
     let(:step_factory){fake}
-    let(:sut) { ArrayBuilder.new(:blah,:step_factory => step_factory,:steps => steps) }
+    let(:sut) { ArrayBuilder.new(attribute,:step_factory => step_factory,:steps => steps) }
+    let(:attribute) { :blah }
     let(:readable_step) {fake}
     let(:steps) { [] }
     context "when configuring an array to be readable" do
@@ -53,6 +54,22 @@ module RArrays
       end
       it 'add initialization step' do
         steps.include?(init_step).should be_true
+      end
+    end
+
+    context "when applied against a target" do
+      let(:target) { fake} 
+      before(:each) do
+        steps.push(fake)
+        steps.push(fake)
+      end
+      before(:each) do
+        sut.apply_to(target)
+      end
+      it "should run each step against the target" do
+        steps.each do |step|
+          step.should have_received(:run_against, :target => target, :attribute => attribute)
+        end
       end
     end
   end
