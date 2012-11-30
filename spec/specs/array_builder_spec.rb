@@ -5,9 +5,10 @@ module RArrays
     let(:step_factory){fake}
     let(:sut) { ArrayBuilder.new(attribute,:step_factory => step_factory,:steps => steps) }
     let(:attribute) { :blah }
-    let(:readable_step) {fake}
     let(:steps) { [] }
+
     context "when configuring an array to be readable" do
+      let(:readable_step) {fake}
       before(:each) do
         step_factory.stub(:create_for).with(:readable).and_return(readable_step)
       end
@@ -44,31 +45,32 @@ module RArrays
       end
     end
 
-    context 'when created' do
+    context 'builder that has been initialized' do
       let(:init_step) { fake }
       before(:each) do
         step_factory.stub(:create_for).with(:init_step).and_return(init_step)
-      end
-      before(:each) do
         sut
       end
-      it 'add initialization step' do
-        steps.include?(init_step).should be_true
-      end
-    end
 
-    context "when applied against a target" do
-      let(:target) { fake} 
-      before(:each) do
-        steps.push(fake)
-        steps.push(fake)
+      context 'when created' do
+        it 'add initialization step' do
+          steps.include?(init_step).should be_true
+        end
       end
-      before(:each) do
-        sut.apply_to(target)
-      end
-      it "should run each step against the target" do
-        steps.each do |step|
-          step.should have_received(:run_against, :target => target, :attribute => attribute)
+
+      context "when applied against a target" do
+        let(:target) { fake} 
+        before(:each) do
+          steps.push(fake)
+          steps.push(fake)
+        end
+        before(:each) do
+          sut.apply_to(target)
+        end
+        it "should run each step against the target" do
+          steps.each do |step|
+            step.should have_received(:run_against,{ :target => target, :attribute => attribute})
+          end
         end
       end
     end
