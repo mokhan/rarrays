@@ -14,5 +14,8 @@ module RArrays
     def writeable
       @steps << :writeable
     end
+    def mutator(name)
+      @steps << :mutator
+    end
   end
 end
