@@ -20,6 +20,13 @@ module RArrays
         sut.steps.include?(:writeable).should be_true
       end
     end
-
+    context 'when adding an aliased mutator method' do
+      before(:each) do
+        sut.mutator :add_item
+      end
+      it "should include a new step for the mutator " do
+        sut.steps.include?(:mutator).should be_true
+      end
+    end
   end
 end

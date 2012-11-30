@@ -11,5 +11,8 @@ module RArrays
     def readable
       @steps << :readable
     end
+    def writeable
+      @steps << :writeable
+    end
   end
 end
