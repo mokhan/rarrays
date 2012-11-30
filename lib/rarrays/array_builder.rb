@@ -4,6 +4,7 @@ module RArrays
     def initialize(name, configuration = {})
       @steps = configuration[:steps]
       @step_factory = configuration[:step_factory]
+      @steps << @step_factory.create_for(:init_step)
     end
     def apply_to(target)
 
