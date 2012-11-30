@@ -42,5 +42,18 @@ module RArrays
         steps.include?(mutator_step).should be_true
       end
     end
+
+    context 'when created' do
+      let(:init_step) { fake }
+      before(:each) do
+        step_factory.stub(:create_for).with(:init_step).and_return(init_step)
+      end
+      before(:each) do
+        sut
+      end
+      it 'add initialization step' do
+        steps.include?(init_step).should be_true
+      end
+    end
   end
 end
