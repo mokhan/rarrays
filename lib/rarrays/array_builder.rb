@@ -1,7 +1,7 @@
 module RArrays
   class ArrayBuilder
     attr_reader :steps
-    def initialize(name)
+    def initialize(name, configuration = {})
       @steps = []
     end
     def apply_to(target)
