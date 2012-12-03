@@ -1,3 +1,3 @@
-require 'rarrays/object'
-require 'rarrays/array_builder'
-require 'rarrays/step_factory'
+Dir.glob("rarrays/**/**.rb").each do |file|
+  require file
+end
